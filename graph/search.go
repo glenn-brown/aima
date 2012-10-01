@@ -1,7 +1,7 @@
 package graph
 
 //
-// GraphSearch uses the following interfaces.
+// Search uses the following interfaces.
 //
 
 // Action wraps the client-defined type for specifying actions to
@@ -20,8 +20,6 @@ type Problem interface {
 type State interface {
 	// Actions returns the actions that may be applied to state.
 	Actions() []Action
-	// ID uniquely identifies a state, preferably compactly.
-	ID() string
 }
 
 type Frontier interface {
@@ -40,15 +38,20 @@ type Cost interface {
 	Add(Cost) Cost
 }
 
+type Seen interface {
+	See(State)
+	Saw(State) bool
+}
+
 // Search searches for solutions to Problem p starting in State start.
 // Frontier f stores the frontier and selects which node to explore next.
-func Search(p Problem, start State, f Frontier, zero Cost) []Action {
+func Search(p Problem, start State, f Frontier, zero Cost, x Seen) []Action {
 	// Initialize the frontier using the initial state of the problem.
 	n := &Node{start, nil, nil, zero}
 	f.Insert(n)
 	// Initialize the explored set to be empty.
 	// [We keep frontier nodes there, too, for efficiency.]
-	x := map[string]bool{start.ID(): true}
+	x.See(start)
 	// "loop do"
 	for {
 		// "if the frontier is empty, then return failure."
@@ -65,9 +68,9 @@ func Search(p Problem, start State, f Frontier, zero Cost) []Action {
 
 		// "Expand the chosen node, adding the resulting nodes to the frontier
 		// only if not in the frontier or explored set."
-		for a := range n.state.Actions() {
+		for _, a := range n.state.Actions() {
 			nu := childNode(p, n, a)
-			if _, ok := x[nu.state.ID()]; !ok {
+			if !x.Saw(nu.state) {
 				f.Insert(nu)
 			}
 		}

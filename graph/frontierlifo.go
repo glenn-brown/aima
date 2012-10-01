@@ -18,7 +18,7 @@ func (l *FrontierLifo) Pop() (n *Node) {
 }
 
 // Insert adds an entry into the LIFO.
-func (l *FrontierLifo) Insert(n *Node) *FrontierLifo {
+func (l *FrontierLifo) Insert(n *Node) Frontier {
 	l.nodes = append(l.nodes, n)
 	return l
 }

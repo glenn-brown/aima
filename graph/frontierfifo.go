@@ -14,7 +14,7 @@ func (f *FrontierFifo) Pop() (n *Node) {
 	return
 }
 
-func (f *FrontierFifo) Insert(n *Node) *FrontierFifo {
+func (f *FrontierFifo) Insert(n *Node) Frontier {
 	f.nodes = append(f.nodes, n)
 	return f
 }
