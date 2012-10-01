@@ -58,7 +58,7 @@ func Search(p Problem, start State, f Frontier, zero Cost, x Seen) []Action {
 	// [We keep frontier nodes there, too, for efficiency.]
 	x.See(start)
 	// "loop do"
-	for cnt:=1; true; {
+	for {
 		// "if the frontier is empty, then return failure."
 		if f.Empty() {
 			fmt.Fprintf(os.Stderr, "No solution\n");
@@ -86,10 +86,6 @@ func Search(p Problem, start State, f Frontier, zero Cost, x Seen) []Action {
 				nu := &Node{result, n, a, cost}
 				// fmt.Fprintf(os.Stderr, "Inserting state %x\n", nu.state);
 				f.Insert(nu)
-				cnt++;
-				if 0 == (cnt & (cnt-1)) {
-					fmt.Fprintf(os.Stderr, "%d states seen (%x)\n", cnt, result)
-				}
 			}
 		}
 	}
