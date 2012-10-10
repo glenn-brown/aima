@@ -1,0 +1,32 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+Crawl	crawl.go	/^func Crawl(from, to string, log *log.Logger) []string {$/;"	f
+_	queue.go	/^var hostRe, _ = regexp.Compile("http:\/\/([^\/]*)")$/;"	v
+aRegexp	crawl.go	/^var aRegexp = regexp.MustCompile("<[aA][^>]*>")$/;"	v
+add	queue.go	/^func (a *pathQ) add(p *path) {$/;"	f
+crawl	crawl.go	/^func crawl(n int, req <-chan *path, ack chan<- []*path, enumerateLinks enumLinksFn, log *log.Logger) {$/;"	f
+directedcrawl	crawl.go	/^package directedcrawl$/;"	p
+directedcrawl	queue.go	/^package directedcrawl$/;"	p
+empty	queue.go	/^func (h *hostQ) empty() bool {$/;"	f
+enumLinksFn	crawl.go	/^type enumLinksFn func(p *path, ack chan<- []*path, l *log.Logger)$/;"	t
+enumerateLinksBackward	crawl.go	/^func enumerateLinksBackward(to *path, ack chan<- []*path, log *log.Logger) {$/;"	f
+enumerateLinksForward	crawl.go	/^func enumerateLinksForward(from *path, ack chan<- []*path, log *log.Logger) {$/;"	f
+hostQ	queue.go	/^type hostQ struct {$/;"	t
+hostRe	queue.go	/^var hostRe, _ = regexp.Compile("http:\/\/([^\/]*)")$/;"	v
+main	eg/eg.go	/^func main() {$/;"	f
+main	eg/eg.go	/^package main$/;"	p
+newHostQ	queue.go	/^func newHostQ(hostname string) *hostQ {$/;"	f
+newPathQ	queue.go	/^func newPathQ() *pathQ {$/;"	f
+normalizeURL	crawl.go	/^func normalizeURL(url string) string {$/;"	f
+pageURLs	crawl.go	/^func pageURLs(url string, log *log.Logger) []string {$/;"	f
+path	crawl.go	/^type path struct {$/;"	t
+pathForPrefixSuffix	crawl.go	/^func pathForPrefixSuffix(prefix *path, suffix *path) []string {$/;"	f
+pathQ	queue.go	/^type pathQ struct {$/;"	t
+pop	queue.go	/^func (h *hostQ) pop() (p *path) {$/;"	f
+pushBack	queue.go	/^func (h *hostQ) pushBack(p *path) {$/;"	f
+rm	queue.go	/^func (a *pathQ) rm() (p *path) {$/;"	f
+urlRegexp	crawl.go	/^var urlRegexp = regexp.MustCompile("http:\/\/[^ ;)<>#'%\\"\\t\\n]*")$/;"	v

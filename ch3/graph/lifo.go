@@ -1,24 +1,24 @@
 package graph
 
-// FrontierLifo is a simple Last In First Out (LIFO) queue.
-type FrontierLifo struct {
+// Lifo is a simple Last In First Out (LIFO) queue.
+type Lifo struct {
 	nodes []*Node
 }
 
 // Empty returns true iff the LIFO is empty.
-func (l FrontierLifo) Empty() bool {
+func (l Lifo) Empty() bool {
 	return 0 == len(l.nodes)
 }
 
 // Pop returns the most recently added entry in the LIFO.
-func (l *FrontierLifo) Pop() (n *Node) {
+func (l *Lifo) Pop() (n *Node) {
 	n = l.nodes[len(l.nodes)-1]
 	l.nodes = l.nodes[:len(l.nodes)-1]
 	return
 }
 
 // Insert adds an entry into the LIFO.
-func (l *FrontierLifo) Insert(n *Node) Frontier {
+func (l *Lifo) Insert(n *Node) Frontier {
 	l.nodes = append(l.nodes, n)
 	return l
 }
