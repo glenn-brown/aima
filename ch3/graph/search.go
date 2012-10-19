@@ -7,13 +7,13 @@ import (
 
 // Search searches for solutions to Problem p starting in State start.
 // Frontier f stores the frontier and selects which node to explore next.
-func Search(p *Problem, start State, f Frontier, zero Cost, x Seen) []Action {
+func Search(p *Problem, f Frontier, x Seen) []Action {
 	// Initialize the frontier using the initial state of the problem.
-	n := &Node{start, nil, nil, zero, zero}
+	n := &Node{p.InitialState, nil, nil, p.Zero, p.Zero}
 	f.Insert(n)
 	// Initialize the explored set to be empty.
 	// [We keep frontier nodes there, too, for efficiency.]
-	x.See(start)
+	x.See(p.InitialState)
 	// "loop do"
 	for {
 		// "if the frontier is empty, then return failure."
@@ -39,9 +39,9 @@ func Search(p *Problem, start State, f Frontier, zero Cost, x Seen) []Action {
 			if !x.Saw(result) {
 				x.See(result)
 				// fmt.Fprintf(os.Stderr, "New State %x\n", n.state)skiplist/
-				cost := n.g.Add(p.StepCost(n.state, a))
+				cost := n.g.Add(p.StepCost(n.state, a)).(Cost)
 				nu := &Node{result, n, a, cost, cost}
-				nu.f = nu.g.Add(p.Heuristic(nu.state))
+				nu.f = nu.g.Add(p.Heuristic(nu.state)).(Cost)
 				// fmt.Fprintf(os.Stderr, "Inserting state %x\n", nu.state);
 				f.Insert(nu)
 			} else {

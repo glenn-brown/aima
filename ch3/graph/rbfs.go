@@ -17,7 +17,7 @@ func RBFS(p *Problem, n *Node, f_limit Cost) (result []Action, c Cost) {
 		return nil, p.Infinity
 	}
 	for _, s := range successors {
-		s.f = max(s.g.Add(p.Heuristic(s.state)), n.f)
+		s.f = max(s.g.Add(p.Heuristic(s.state)).(Cost), n.f)
 	}
 	for {
 		best, alternative := lowestFValueNodeIn(p, successors)
@@ -33,9 +33,9 @@ func RBFS(p *Problem, n *Node, f_limit Cost) (result []Action, c Cost) {
 }
 
 func childNode(p *Problem, n *Node, a Action) *Node {
-	g := n.g.Add(p.StepCost(n.state, a))
+	g := n.g.Add(p.StepCost(n.state, a)).(Cost)
 	nu := &Node{p.Result(n.state, a), n, a, g, g}
-	nu.f = nu.g.Add(p.Heuristic(nu.state))
+	nu.f = nu.g.Add(p.Heuristic(nu.state)).(Cost)
 	return nu
 }
 

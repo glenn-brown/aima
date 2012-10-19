@@ -64,7 +64,7 @@ func (q *PriorityQ) Insert(n *Node) Frontier {
 func (q *PriorityQ) cost(i int) Cost {
 	c := q.nodes[i].g
 	if q.h != nil {
-		c = c.Add(q.h(q.nodes[i].state))
+		c = c.Add(q.h(q.nodes[i].state)).(Cost)
 	}
 	return c
 }
