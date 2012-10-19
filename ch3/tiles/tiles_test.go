@@ -6,29 +6,32 @@ import (
 	"testing"
 )
 
+// 0x51287436
+const X State = 0x12034567
+
 func Tiles(f graph.Frontier, state State) []graph.Action {
 	s := Seen{}.Init()
-	p := New(0x12345678, 0x01234567)
-	return graph.Search(p, state, f, Cost(0), &s)
+	p := New(state, 0x01234567)
+	return graph.Search(p, f, &s)
 }
 
 func ExampleTilesPriorityQ() {
-	fmt.Println(Tiles(graph.NewPriorityQ(heuristic),0x51287436))
-	// Output: foo
+	fmt.Println(Tiles(graph.NewPriorityQ(heuristic),X))
+	// Output: [E E]
 }
 
 func ExampleTilesFifo() {
-	fmt.Println(Tiles(&graph.Fifo{},0x51287436))
-	// Output: foo
+	fmt.Println(Tiles(&graph.Fifo{},X))
+	// Output: [E E]
 }
 
 func ExampleTilesLifo() {
-	fmt.Println(Tiles(&graph.Lifo{},0x51287436))
-	// Output: foo
+	fmt.Println(Tiles(&graph.Lifo{},X))
+	// Output: [E E]
 }
 
 func ExampleTilesRbfs() {
-	fmt.Println(graph.RecursiveBestFirstSearch(New(0x51287436,0x01234567)))
+	fmt.Println(graph.RecursiveBestFirstSearch(New(X,0x01234567)))
 }
 
 func BenchmarkTilesLifo(b *testing.B) {

@@ -8,11 +8,22 @@ import (
 	"os"
 )
 
+type Action int
+
 // Actions are named as the cardinal directions, but the values are
 // the offset to the tile in the specified direction.
 const (
-	N, E, W, S = -3, +1, -1, +3 // North, East, West, South
+	N, E, W, S = Action(-3), Action(+1), Action(-1), Action(+3) // North, East, West, South
 )
+func (a Action) String() string {
+	switch a {
+	case N: return "N"
+	case E: return "E"
+	case W: return "W"
+	case S: return "S"
+	}
+	panic("bad action")
+}
 
 // act maps the empty-tile position to a slice of possible moves (actions).
 var act = [9][]graph.Action{
@@ -82,19 +93,6 @@ func (s State) Pack() (packed uint) {
 }
 
 //
-// Cost
-//
-
-type Cost int
-
-func (a Cost) Less(other graph.Cost) bool {
-	return a < other.(Cost)
-}
-func (a Cost) Add(other graph.Cost) graph.Cost {
-	return a + other.(Cost)
-}
-
-//
 // Problem
 //
 
@@ -112,14 +110,14 @@ func New(initialState, finalState State) *graph.Problem {
 func Result(s graph.State, a graph.Action) graph.State {
 	ts := s.(State)
 	zeroPos := ts.Pos(0)
-	otherPos := uint(int(zeroPos) + a.(int))
+	otherPos := uint(int(zeroPos) + int(a.(Action)))
 	otherVal := ts.Get(otherPos)
 	rv := ts.Set(zeroPos, otherVal).Set(otherPos, 0)
 	// fmt.Fprintf (os.Stderr, "Result(%x,%d) -> %x\n", s, a, rv)
 	return rv
 }
 func StepCost(s graph.State, a graph.Action) graph.Cost {
-	return Cost(1)
+	return graph.NewCost(1)
 }
 
 //
@@ -157,5 +155,5 @@ func heuristic(_s graph.State) graph.Cost {
 			c += manhatten[i][tile]
 		}
 	}
-	return Cost(c)
+	return graph.NewCost(c)
 }
