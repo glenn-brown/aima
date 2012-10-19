@@ -28,6 +28,52 @@ const (
 	Cities
 )
 
+func (c City) String() string {
+	switch c {
+	case Arad:
+		return "Arad"
+	case Bucharest:
+		return "Bucharest"
+	case Craiova:
+		return "Craiova"
+	case Drobeta:
+		return "Drobeta"
+	case Eforie:
+		return "Eforie"
+	case Fagaras:
+		return "Fagaras"
+	case Giurgiu:
+		return "Giurgiu"
+	case Hirsova:
+		return "Hirsova"
+	case Iasi:
+		return "Iasi"
+	case Lugoj:
+		return "Lugoj"
+	case Mehadia:
+		return "Mehadia"
+	case Neamt:
+		return "Neamt"
+	case Oradea:
+		return "Oradea"
+	case Pitesti:
+		return "Pitesti"
+	case RimnicuVilcea:
+		return "RimnicuVilcea"
+	case Sibiu:
+		return "Sibiu"
+	case Timisoara:
+		return "Timisoara"
+	case Urziceni:
+		return "Urziceni"
+	case Vaslui:
+		return "Vaslui"
+	case Zerind:
+		return "Zerind"
+	}
+	return "?City?"
+}
+
 var roads = []struct {
 	a City
 	d int
