@@ -1,8 +1,9 @@
+
 package tiles
 
 import (
 	"fmt"
-	"github.com/glenn-brown/aima/graph"
+	"github.com/glenn-brown/aima/ch3/graph"
 	"math/rand"
 	"os"
 )
@@ -57,7 +58,7 @@ func (t State) Set(pos, val uint) State {
 func Random() State {
 	s := State(0x76543210)
 	for i := 0; i < 100; i++ {
-		acts := s.Actions()
+		acts := Actions(s)
 		act := acts[rand.Intn(len(acts))]
 		zeroPos := s.Pos(0)
 		otherPos := uint(int(zeroPos) + act.(int))
@@ -69,8 +70,8 @@ func Random() State {
 	fmt.Fprintf(os.Stderr, "Random() -> %08x\n", s)
 	return s
 }
-func (s State) Actions() []graph.Action {
-	return act[s.Pos(0)]
+func Actions(s graph.State) []graph.Action {
+	return act[s.(State).Pos(0)]
 }
 func (s State) Pack() (packed uint) {
 	for i := uint(0); i < 8; i++ {
@@ -97,12 +98,18 @@ func (a Cost) Add(other graph.Cost) graph.Cost {
 // Problem
 //
 
-type Problem struct{}
-
-func (*Problem) IsGoal(s graph.State) bool {
-	return s.(State) == 0x76543210
+func New(initialState, finalState State) *graph.Problem {
+	return graph.NewProblem(
+		Actions,
+		heuristic,
+		graph.NewCost(1<<31-1),
+		initialState,
+		func(s graph.State) bool { return s.(State) == finalState },
+		Result,
+		StepCost,
+		graph.NewCost(0))
 }
-func (*Problem) Result(s graph.State, a graph.Action) graph.State {
+func Result(s graph.State, a graph.Action) graph.State {
 	ts := s.(State)
 	zeroPos := ts.Pos(0)
 	otherPos := uint(int(zeroPos) + a.(int))
@@ -111,7 +118,7 @@ func (*Problem) Result(s graph.State, a graph.Action) graph.State {
 	// fmt.Fprintf (os.Stderr, "Result(%x,%d) -> %x\n", s, a, rv)
 	return rv
 }
-func (*Problem) StepCost(s graph.State, a graph.Action) graph.Cost {
+func StepCost(s graph.State, a graph.Action) graph.Cost {
 	return Cost(1)
 }
 

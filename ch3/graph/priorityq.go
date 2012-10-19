@@ -1,19 +1,19 @@
 package graph
 
-type FrontierCheapest struct {
+type PriorityQ struct {
 	nodes []*Node
 	h     func(State) Cost
 }
 
-func NewFrontierCheapest(h func(State) Cost) *FrontierCheapest {
-	return &FrontierCheapest{[]*Node{}, h}
+func NewPriorityQ(h func(State) Cost) *PriorityQ {
+	return &PriorityQ{[]*Node{}, h}
 }
 
-func (q FrontierCheapest) Empty() bool {
+func (q PriorityQ) Empty() bool {
 	return 0 == len(q.nodes)
 }
 
-func (q *FrontierCheapest) Pop() *Node {
+func (q *PriorityQ) Pop() *Node {
 	// We will return the first node.
 	n := q.nodes[0]
 	// Replace the returning node with the last node.
@@ -42,7 +42,7 @@ func (q *FrontierCheapest) Pop() *Node {
 	return n
 }
 
-func (q *FrontierCheapest) Insert(n *Node) Frontier {
+func (q *PriorityQ) Insert(n *Node) Frontier {
 	// Append new entry
 	l := len(q.nodes)
 	q.nodes = append(q.nodes, n)
@@ -61,8 +61,8 @@ func (q *FrontierCheapest) Insert(n *Node) Frontier {
 }
 
 // Function cost() returns the estimated cost of a solution starting a node I.
-func (q *FrontierCheapest) cost(i int) Cost {
-	c := q.nodes[i].pathCost
+func (q *PriorityQ) cost(i int) Cost {
+	c := q.nodes[i].g
 	if q.h != nil {
 		c = c.Add(q.h(q.nodes[i].state))
 	}
