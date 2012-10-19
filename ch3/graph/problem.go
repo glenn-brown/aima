@@ -18,16 +18,3 @@ type Problem struct {
 	// Zero returns the 0 Cost for the problem.
 	Zero Cost
 }
-
-func NewProblem(
-	Actions func(s State) []Action,
-	Heuristic func(s State) Cost,
-	Infinity Cost,
-	InitialState State,
-	IsGoal func(State) bool,
-	Result func(State, Action) State,
-	StepCost func(State, Action) Cost,
-	Zero Cost)(*Problem) {
-	
-	return &Problem{Actions, Heuristic, Infinity, InitialState, IsGoal, Result, StepCost, Zero}
-}

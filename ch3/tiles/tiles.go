@@ -99,7 +99,7 @@ func (a Cost) Add(other graph.Cost) graph.Cost {
 //
 
 func New(initialState, finalState State) *graph.Problem {
-	return graph.NewProblem(
+	return &graph.Problem{
 		Actions,
 		heuristic,
 		graph.NewCost(1<<31-1),
@@ -107,7 +107,7 @@ func New(initialState, finalState State) *graph.Problem {
 		func(s graph.State) bool { return s.(State) == finalState },
 		Result,
 		StepCost,
-		graph.NewCost(0))
+		graph.NewCost(0)}
 }
 func Result(s graph.State, a graph.Action) graph.State {
 	ts := s.(State)
