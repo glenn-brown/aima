@@ -20,5 +20,4 @@ type Seen interface {
 
 type Solution []Action
 
-type State interface {}
-
+type State interface{}

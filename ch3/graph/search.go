@@ -18,7 +18,7 @@ func Search(p *Problem, start State, f Frontier, zero Cost, x Seen) []Action {
 	for {
 		// "if the frontier is empty, then return failure."
 		if f.Empty() {
-			fmt.Fprintf(os.Stderr, "No solution\n");
+			fmt.Fprintf(os.Stderr, "No solution\n")
 			return nil
 		}
 		// "Choose a leaf node and remove it from the frontier"
@@ -26,7 +26,7 @@ func Search(p *Problem, start State, f Frontier, zero Cost, x Seen) []Action {
 		// fmt.Fprintf(os.Stderr, "State %x\n", n.state)
 		// "If the node contains a goal state then return the corresponding solution."
 		if p.IsGoal(n.state) {
-			fmt.Fprintf(os.Stderr, "Goal reached: %v\n", n);
+			fmt.Fprintf(os.Stderr, "Goal reached: %v\n", n)
 			return solution(n)
 		}
 		// "Add the node to the explored set." [Just leave it in X]
